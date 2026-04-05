@@ -12,10 +12,10 @@ jobs:
       ORG_GRADLE_PROJECT_newArchEnabled: false
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node (React Native compatible)
+      - name: Setup Node 18
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -25,7 +25,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: gradle
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -33,20 +32,18 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Give permission to gradlew
-        run: chmod +x android/gradlew
+      - name: Install Android 36 SDK
+        run: |
+          sdkmanager "platforms;android-36"
+          sdkmanager "build-tools;36.0.0"
 
-      - name: Clean Gradle
+      - name: Build APK
         run: |
           cd android
-          ./gradlew clean
-
-      - name: Build Debug APK
-        run: |
-          cd android
+          chmod +x gradlew
           ./gradlew assembleDebug --no-daemon --max-workers=2
 
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: kanakku-apk
