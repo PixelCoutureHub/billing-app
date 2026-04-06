@@ -17,6 +17,7 @@
     "@react-navigation/native-stack": "^7.3.10",
     "@react-navigation/stack": "^7.2.10",
     "@redux-devtools/extension": "^4.0.0",
+    "redux-devtools-extension": "^2.13.9"
     "axios": "^1.8.4",
     "crypto-js": "^4.2.0",
     "moment": "^2.30.1",
