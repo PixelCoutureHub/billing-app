@@ -957,7 +957,7 @@ const AddPurchaseOrderScreen = ({ route }: any) => {
                                         />
                                     </View>
                                 </View>
-                            </KeyboardAwareScrollView>
+                            </KeyboardAScrollView>
                         </View>
                         <CustomModal children={<AddBankDetails onSave={addSaveBtn} onCancel={closeModal} />} visible={addBankDetailsModal} onClose={closeModal} height={'80%'} />
                         <CustomModal
