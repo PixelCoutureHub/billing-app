@@ -44,16 +44,15 @@ android {
     }
 
     buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-        }
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-        }
+    debug {
+        signingConfig signingConfigs.debug
     }
+    release {
+        signingConfig signingConfigs.debug
+        minifyEnabled false
+        shrinkResources false
+    }
+}
 
     splits {
         abi {
