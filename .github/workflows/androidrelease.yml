@@ -1,4 +1,4 @@
-name: Build Profitly Release APK
+name: Build Profitly APK
 
 on:
   workflow_dispatch:
@@ -7,12 +7,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m -XX:MaxMetaspaceSize=1024m"
-      ORG_GRADLE_PROJECT_newArchEnabled: false
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -20,7 +16,7 @@ jobs:
         with:
           node-version: 18
 
-      - name: Setup Java 17
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -32,20 +28,18 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android SDK 34
+      - name: Install SDK
         run: |
           sdkmanager "platforms;android-34"
           sdkmanager "build-tools;34.0.0"
 
-      - name: Grant permission
-        run: chmod +x android/gradlew
-
       - name: Build Release APK
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleRelease --no-daemon
 
-      - name: Upload Release APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: profitly-release-apk
